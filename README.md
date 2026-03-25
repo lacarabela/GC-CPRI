@@ -1,1 +1,1 @@
-# INST490-Composite-Civic-Participation-Risk-Index
+# GC-CPRI
