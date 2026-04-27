@@ -265,6 +265,42 @@
     </div>
   </main>
 
+  <!-- COMPARE SECTION -->
+  <section class="compare-section" id="compare-section" hidden>
+    <div class="compare-inner">
+      <div class="compare-header">
+        <div>
+          <h2 class="section-title">Compare Counties</h2>
+          <p class="compare-sub">Side-by-side breakdown at current slider weights. Indicator cells are tinted to show relative position within the compared set.</p>
+        </div>
+        <button class="compare-clear" id="compare-clear">Clear all</button>
+      </div>
+      <div class="compare-cards" id="compare-cards"></div>
+    </div>
+  </section>
+
+  <!-- DETAIL PANEL (slides in from right) -->
+  <aside class="detail-panel" id="detail-panel" aria-hidden="true">
+    <div class="detail-inner">
+      <div class="detail-head">
+        <button class="detail-close" id="detail-close" aria-label="Close">×</button>
+        <p class="detail-eyebrow">County Detail</p>
+        <h2 class="detail-title" id="detail-county">—</h2>
+        <div class="detail-score-row">
+          <span class="detail-score" id="detail-score">—</span>
+          <span class="tier-badge" id="detail-tier">—</span>
+        </div>
+        <button class="detail-add" id="detail-add">+ Add to compare</button>
+      </div>
+      <div class="detail-body">
+        <h3 class="detail-section-title">Indicator Breakdown</h3>
+        <p class="detail-section-sub">Each indicator's contribution to the composite score at current weights. Bars extend right when the indicator pushes the score up, left when it pulls it down.</p>
+        <div class="detail-rows" id="detail-rows"></div>
+      </div>
+    </div>
+  </aside>
+  <div class="detail-scrim" id="detail-scrim" hidden></div>
+
   <!-- METHODOLOGY NOTE -->
   <section class="methodology-section" id="methodology">
     <div class="methodology-inner">

@@ -83,6 +83,54 @@ function getScoredCounties() {
   return COUNTIES.map(c => ({ ...c, score: recomputeScore(c) }));
 }
 
+function getIndicatorBreakdown(county) {
+  return INDICATORS.map(ind => {
+    const rawValue = county.indicators_raw[ind.id];
+    const aligned = (rawValue === null || rawValue === undefined)
+      ? ind.median_for_imputation
+      : applyTransform(rawValue, ind.transform);
+    const z = (aligned - ind.mean) / ind.std;
+    const contribution = WEIGHTS[ind.id] * LOADINGS[ind.id] * z;
+    return {
+      id: ind.id,
+      label: ind.label,
+      direction: ind.direction,
+      rawValue,
+      aligned,
+      z,
+      contribution,
+      imputed: rawValue === null || rawValue === undefined,
+    };
+  });
+}
+
+function rankWithin(county, indicatorId, set) {
+  const ind = INDICATORS.find(i => i.id === indicatorId);
+  const vals = set.map(c => {
+    const v = c.indicators_raw[indicatorId];
+    return (v === null || v === undefined)
+      ? ind.median_for_imputation
+      : applyTransform(v, ind.transform);
+  });
+  const myIdx = set.findIndex(c => c.name === county.name);
+  const my = vals[myIdx];
+  const sorted = [...vals].slice().sort((a, b) => a - b);
+  const rank = sorted.indexOf(my);
+  return { rank, total: vals.length };
+}
+
+function formatRaw(ind, value) {
+  if (value === null || value === undefined) return '—';
+  switch (ind.display_format) {
+    case 'percent_div100': return `${value.toFixed(1)}%`;
+    case 'percent_share':  return `${(value * 100).toFixed(1)}%`;
+    case 'currency_usd':   return `$${Math.round(value).toLocaleString()}`;
+    case 'integer':        return value.toFixed(0);
+    case 'decimal':        return value.toFixed(2);
+    default:               return value.toFixed(2);
+  }
+}
+
 // ------------------------------------
 // TIER + COLOR
 // ------------------------------------
@@ -228,10 +276,11 @@ function renderTable() {
     const barWidth = s !== null ? s : 0;
     const barColor = s !== null ? interpolateColor(s) : '#c8c4be';
 
+    const rowSelected = (selectedCounty && selectedCounty.name === county.name) ? 'row-selected' : '';
     return `
-      <tr style="animation-delay: ${i * 0.018}s">
+      <tr class="${rowSelected}" data-county="${county.name}" style="animation-delay: ${i * 0.018}s">
         <td class="td-rank">${i + 1}</td>
-        <td class="td-county">
+        <td class="td-county td-county-clickable">
           ${county.name}
           <div class="td-county-sub">Alabama</div>
         </td>
@@ -245,6 +294,13 @@ function renderTable() {
       </tr>
     `;
   }).join('');
+
+  tbody.querySelectorAll('tr[data-county]').forEach(tr => {
+    tr.addEventListener('click', () => {
+      const c = COUNTIES.find(x => x.name === tr.dataset.county);
+      if (c) openDetail(c);
+    });
+  });
 }
 
 // ------------------------------------
@@ -292,6 +348,8 @@ function initSliders() {
       updateSliderTrack(slider);
       colorMap();
       renderTable();
+      if (selectedCounty) renderDetail();
+      renderCompare();
     });
   });
 }
@@ -306,6 +364,8 @@ function resetWeights() {
   });
   colorMap();
   renderTable();
+  if (selectedCounty) renderDetail();
+  renderCompare();
 }
 
 // ------------------------------------
@@ -371,6 +431,222 @@ function showStatus(msg, isError = false) {
 }
 
 // ------------------------------------
+// DETAIL PANEL
+// ------------------------------------
+
+let selectedCounty = null;
+const MAX_BAR_CONTRIBUTION = 2.5;  // contribution magnitude that fills the bar
+
+function openDetail(county) {
+  selectedCounty = county;
+  document.getElementById('detail-panel').classList.add('open');
+  document.getElementById('detail-panel').setAttribute('aria-hidden', 'false');
+  document.getElementById('detail-scrim').hidden = false;
+  requestAnimationFrame(() => document.getElementById('detail-scrim').classList.add('visible'));
+  renderDetail();
+  renderTable();
+}
+
+function closeDetail() {
+  selectedCounty = null;
+  document.getElementById('detail-panel').classList.remove('open');
+  document.getElementById('detail-panel').setAttribute('aria-hidden', 'true');
+  const scrim = document.getElementById('detail-scrim');
+  scrim.classList.remove('visible');
+  setTimeout(() => { scrim.hidden = true; }, 250);
+  renderTable();
+}
+
+function renderDetail() {
+  if (!selectedCounty) return;
+  const c = selectedCounty;
+  const score = recomputeScore(c);
+  const tier  = getTier(score);
+  const breakdown = getIndicatorBreakdown(c);
+
+  document.getElementById('detail-county').textContent = `${c.name} County`;
+  const scoreEl = document.getElementById('detail-score');
+  scoreEl.textContent = score.toFixed(1);
+  scoreEl.style.color = interpolateColor(score);
+
+  const tierEl = document.getElementById('detail-tier');
+  tierEl.textContent = getTierLabel(score);
+  tierEl.className = `tier-badge ${tier}`;
+
+  // Add-to-compare button state
+  const addBtn = document.getElementById('detail-add');
+  if (compareSet.find(x => x.name === c.name)) {
+    addBtn.textContent = '✓ In compare';
+    addBtn.classList.add('added');
+    addBtn.disabled = true;
+  } else if (compareSet.length >= 4) {
+    addBtn.textContent = 'Compare full (4 max)';
+    addBtn.classList.add('added');
+    addBtn.disabled = true;
+  } else {
+    addBtn.textContent = '+ Add to compare';
+    addBtn.classList.remove('added');
+    addBtn.disabled = false;
+  }
+
+  // Indicator rows
+  const rowsEl = document.getElementById('detail-rows');
+  rowsEl.innerHTML = breakdown.map(b => {
+    const ind = INDICATORS.find(i => i.id === b.id);
+    const { rank, total } = rankWithin(c, b.id, COUNTIES);
+    // For rank labelling, we describe relative to the *aligned* direction:
+    // higher aligned value → higher risk. So highest aligned → "highest risk".
+    const rankLabel = `${rank + 1} of ${total}`;
+    const valueDisplay = formatRaw(ind, b.rawValue) + (b.imputed ? ' (imputed)' : '');
+
+    // Bar: center = 0, scale by MAX_BAR_CONTRIBUTION
+    const pct = Math.max(-1, Math.min(1, b.contribution / MAX_BAR_CONTRIBUTION));
+    const isPos = b.contribution >= 0;
+    const widthPct = Math.abs(pct) * 50;
+    const leftPct  = isPos ? 50 : (50 - widthPct);
+    const cls = isPos ? 'positive' : 'negative';
+
+    return `
+      <div class="detail-row">
+        <div class="detail-row-head">
+          <span class="detail-row-label">${b.label}</span>
+          <span class="detail-row-value">${valueDisplay}</span>
+        </div>
+        <div class="detail-row-meta">
+          z-score ${b.z >= 0 ? '+' : ''}${b.z.toFixed(2)} ·
+          contribution ${b.contribution >= 0 ? '+' : ''}${b.contribution.toFixed(2)} ·
+          rank ${rankLabel}
+        </div>
+        <div class="detail-bar-track">
+          <div class="detail-bar-fill ${cls}"
+               style="left:${leftPct}%; width:${widthPct}%;"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ------------------------------------
+// COMPARE
+// ------------------------------------
+
+let compareSet = [];
+
+function addToCompare(county) {
+  if (compareSet.length >= 4) return;
+  if (compareSet.find(c => c.name === county.name)) return;
+  compareSet.push(county);
+  renderCompare();
+  renderDetail();
+}
+
+function removeFromCompare(name) {
+  compareSet = compareSet.filter(c => c.name !== name);
+  renderCompare();
+  if (selectedCounty) renderDetail();
+}
+
+function clearCompare() {
+  compareSet = [];
+  renderCompare();
+  if (selectedCounty) renderDetail();
+}
+
+function renderCompare() {
+  const section = document.getElementById('compare-section');
+  const wrap    = document.getElementById('compare-cards');
+  if (compareSet.length === 0) {
+    section.hidden = true;
+    wrap.innerHTML = '';
+    return;
+  }
+  section.hidden = false;
+
+  // For each indicator, find min/max across the compare set so we can rank-tint each cell
+  const aligned = (county, indId) => {
+    const ind = INDICATORS.find(i => i.id === indId);
+    const v = county.indicators_raw[indId];
+    return (v === null || v === undefined)
+      ? ind.median_for_imputation
+      : applyTransform(v, ind.transform);
+  };
+  const indStats = {};
+  INDICATORS.forEach(ind => {
+    const vals = compareSet.map(c => aligned(c, ind.id));
+    indStats[ind.id] = { min: Math.min(...vals), max: Math.max(...vals) };
+  });
+
+  wrap.innerHTML = compareSet.map(c => {
+    const score = recomputeScore(c);
+    const tier  = getTier(score);
+
+    const rows = INDICATORS.map(ind => {
+      const v = c.indicators_raw[ind.id];
+      const a = aligned(c, ind.id);
+      const { min, max } = indStats[ind.id];
+      // Rank tint: if aligned value is highest in compare set → "high" tint (riskier),
+      // lowest → "low" tint. Equal-min/max → mid (no signal).
+      let cls = 'rank-mid';
+      if (max !== min && compareSet.length > 1) {
+        const ratio = (a - min) / (max - min);
+        if (ratio >= 0.66) cls = 'rank-high';
+        else if (ratio <= 0.33) cls = 'rank-low';
+      }
+      return `
+        <div class="compare-ind-row ${cls}">
+          <span class="compare-ind-label" title="${ind.label}">${ind.label}</span>
+          <span class="compare-ind-value">${formatRaw(ind, v)}</span>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="compare-card">
+        <button class="compare-remove" data-county="${c.name}" aria-label="Remove">×</button>
+        <h3 class="compare-name">${c.name}</h3>
+        <p class="compare-score" style="color:${interpolateColor(score)}">${score.toFixed(1)}</p>
+        <div class="compare-tier-row"><span class="tier-badge ${tier}">${getTierLabel(score)}</span></div>
+        <div class="compare-indicators">${rows}</div>
+      </div>
+    `;
+  }).join('');
+
+  wrap.querySelectorAll('.compare-remove').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      removeFromCompare(btn.dataset.county);
+    });
+  });
+}
+
+// ------------------------------------
+// CLICK HANDLERS (map + table) + DETAIL CHROME
+// ------------------------------------
+
+function initMapClicks() {
+  document.querySelectorAll('.county').forEach(path => {
+    path.addEventListener('click', () => {
+      const name = path.dataset.county;
+      if (!COVERED_COUNTIES.has(name)) return;
+      const c = COUNTIES.find(x => x.name === name);
+      if (c) openDetail(c);
+    });
+  });
+}
+
+function initDetailChrome() {
+  document.getElementById('detail-close').addEventListener('click', closeDetail);
+  document.getElementById('detail-scrim').addEventListener('click', closeDetail);
+  document.getElementById('detail-add').addEventListener('click', () => {
+    if (selectedCounty) addToCompare(selectedCounty);
+  });
+  document.getElementById('compare-clear').addEventListener('click', clearCompare);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && selectedCounty) closeDetail();
+  });
+}
+
+// ------------------------------------
 // INIT
 // ------------------------------------
 
@@ -384,6 +660,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateHeaderStats();
     colorMap();
     initMapTooltip();
+    initMapClicks();
+    initDetailChrome();
     renderTable();
   } catch (err) {
     console.error(err);
