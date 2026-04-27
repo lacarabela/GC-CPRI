@@ -1,0 +1,321 @@
+<!-- CREATED BY MOIZ UDDIN -->
+<!-- github.com/ziowm -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GC-CPRI: Composite Civic Participation Risk Index</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <div class="brand-mark">GC</div>
+        <div class="brand-text">
+          <span class="brand-title">CPRI</span>
+          <span class="brand-sub">Composite Civic Participation Risk Index</span>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="#explorer" class="nav-link active">Explorer</a>
+        <a href="#methodology" class="nav-link">Methodology</a>
+        <a href="#about" class="nav-link">About</a>
+      </nav>
+      <div class="header-badge">
+        <span>In partnership with</span>
+        <strong>Southern Poverty Law Center</strong>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Alabama Gulf Coast Region · Spring 2026</p>
+        <h1 class="hero-title">Civic Participation<br/><em>Risk Explorer</em></h1>
+        <p class="hero-desc">An analytical tool for comparing structural barriers to civic participation across Alabama's 67 counties. Adjust indicator weights to explore how different factors shape the composite risk index.</p>
+        <div class="hero-disclaimer">
+          <span class="disclaimer-icon">&#9432;</span>
+          This index is a comparative analytical tool. It does not establish causal relationships or make claims about individual voter behavior.
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="stat-num">24</span>
+          <span class="stat-label">Counties in Dataset</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">5</span>
+          <span class="stat-label">Risk Indicators</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">PCA</span>
+          <span class="stat-label">Methodology</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN EXPLORER -->
+  <main class="explorer" id="explorer">
+
+    <!-- CONTROLS PANEL -->
+    <aside class="controls-panel">
+      <div class="panel-section">
+        <h2 class="panel-heading">Indicator Weights</h2>
+        <p class="panel-desc">Adjust the relative influence of each indicator on the composite risk score.</p>
+
+        <div class="sliders-list" id="sliders-list">
+          <!-- Populated by JS from indicators in gc_cpri_scores_for_app.json -->
+        </div>
+
+        <button class="reset-btn" id="reset-weights">Reset to Default</button>
+      </div>
+
+      <div class="panel-section panel-section--filter">
+        <h2 class="panel-heading">Filter Counties</h2>
+        <input type="text" class="search-input" id="county-search" placeholder="Search county name…" />
+        <div class="risk-filter">
+          <span class="filter-label">Risk tier</span>
+          <div class="filter-chips">
+            <button class="chip active" data-tier="all">All</button>
+            <button class="chip" data-tier="high">High</button>
+            <button class="chip" data-tier="medium">Medium</button>
+            <button class="chip" data-tier="low">Low</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section panel-section--legend">
+        <h2 class="panel-heading">Risk Score Legend</h2>
+        <div class="legend-bar">
+          <div class="legend-gradient"></div>
+          <div class="legend-labels">
+            <span>0 - Lower Risk</span>
+            <span>100 - Higher Risk</span>
+          </div>
+        </div>
+        <div class="legend-tiers">
+          <div class="legend-tier"><span class="tier-dot tier-low"></span>Low (0–33)</div>
+          <div class="legend-tier"><span class="tier-dot tier-medium"></span>Medium (34–66)</div>
+          <div class="legend-tier"><span class="tier-dot tier-high"></span>High (67–100)</div>
+          <div class="legend-tier"><span class="tier-dot tier-pending"></span>Pending (score TBD)</div>
+          <div class="legend-tier"><span class="tier-dot tier-no-data"></span>No data</div>
+        </div>
+        <p class="legend-note">Scores are normalized 0–100 relative to all Alabama counties. Higher scores indicate a greater concentration of access-related risk factors.</p>
+      </div>
+    </aside>
+
+    <!-- MAP + TABLE -->
+    <div class="data-view">
+
+      <!-- MAP -->
+      <section class="map-section">
+        <div class="section-header">
+          <h2 class="section-title">Alabama County Risk Map</h2>
+          <div class="map-controls">
+            <span class="data-note">&#9679; Placeholder data - PCA scores pending</span>
+          </div>
+        </div>
+        <div class="map-container">
+          <div class="map-tooltip" id="map-tooltip"></div>
+          <svg id="alabama-map" viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg">
+            <!-- Alabama counties SVG paths - simplified representative shapes -->
+            <!-- Each path has data-county and data-score attributes -->
+            <!-- Scores are placeholder values 0-100 -->
+
+            <!-- Row 1: Northernmost counties (L to R) -->
+            <path class="county" data-county="Lauderdale" data-score="42" d="M30,30 L130,30 L130,90 L30,90 Z"/>
+            <path class="county" data-county="Limestone" data-score="28" d="M130,30 L210,30 L210,90 L130,90 Z"/>
+            <path class="county" data-county="Madison" data-score="18" d="M210,30 L310,30 L310,90 L210,90 Z"/>
+            <path class="county" data-county="Jackson" data-score="55" d="M310,30 L400,30 L400,90 L310,90 Z"/>
+
+            <!-- Row 2 -->
+            <path class="county" data-county="Colbert" data-score="38" d="M30,90 L100,90 L100,150 L30,150 Z"/>
+            <path class="county" data-county="Lawrence" data-score="61" d="M100,90 L170,90 L170,150 L100,150 Z"/>
+            <path class="county" data-county="Morgan" data-score="33" d="M170,90 L250,90 L250,150 L170,150 Z"/>
+            <path class="county" data-county="Marshall" data-score="47" d="M250,90 L330,90 L330,150 L250,150 Z"/>
+            <path class="county" data-county="DeKalb" data-score="52" d="M330,90 L400,90 L400,150 L330,150 Z"/>
+            <path class="county" data-county="Cherokee" data-score="44" d="M400,90 L460,90 L460,150 L400,150 Z"/>
+
+            <!-- Row 3 -->
+            <path class="county" data-county="Franklin" data-score="67" d="M30,150 L100,150 L100,210 L30,210 Z"/>
+            <path class="county" data-county="Winston" data-score="72" d="M100,150 L170,150 L170,210 L100,210 Z"/>
+            <path class="county" data-county="Cullman" data-score="39" d="M170,150 L250,150 L250,210 L170,210 Z"/>
+            <path class="county" data-county="Blount" data-score="43" d="M250,150 L330,150 L330,210 L250,210 Z"/>
+            <path class="county" data-county="Etowah" data-score="48" d="M330,150 L400,150 L400,210 L330,210 Z"/>
+            <path class="county" data-county="Calhoun" data-score="41" d="M400,150 L460,150 L460,210 L400,210 Z"/>
+            <path class="county" data-county="Cleburne" data-score="58" d="M460,150 L520,150 L520,210 L460,210 Z"/>
+
+            <!-- Row 4 -->
+            <path class="county" data-county="Marion" data-score="69" d="M30,210 L100,210 L100,270 L30,270 Z"/>
+            <path class="county" data-county="Walker" data-score="54" d="M100,210 L170,210 L170,270 L100,270 Z"/>
+            <path class="county" data-county="Jefferson" data-score="22" d="M170,210 L270,210 L270,270 L170,270 Z"/>
+            <path class="county" data-county="St. Clair" data-score="35" d="M270,210 L350,210 L350,270 L270,270 Z"/>
+            <path class="county" data-county="Talladega" data-score="49" d="M350,210 L430,210 L430,270 L350,270 Z"/>
+            <path class="county" data-county="Randolph" data-score="63" d="M430,210 L520,210 L520,270 L430,270 Z"/>
+
+            <!-- Row 5 -->
+            <path class="county" data-county="Lamar" data-score="74" d="M30,270 L100,270 L100,330 L30,330 Z"/>
+            <path class="county" data-county="Fayette" data-score="66" d="M100,270 L170,270 L170,330 L100,330 Z"/>
+            <path class="county" data-county="Tuscaloosa" data-score="31" d="M170,270 L260,270 L260,330 L170,330 Z"/>
+            <path class="county" data-county="Shelby" data-score="12" d="M260,270 L340,270 L340,330 L260,330 Z"/>
+            <path class="county" data-county="Tallapoosa" data-score="57" d="M340,270 L420,270 L420,330 L340,330 Z"/>
+            <path class="county" data-county="Chambers" data-score="65" d="M420,270 L520,270 L520,330 L420,330 Z"/>
+
+            <!-- Row 6 -->
+            <path class="county" data-county="Pickens" data-score="78" d="M30,330 L110,330 L110,390 L30,390 Z"/>
+            <path class="county" data-county="Greene" data-score="88" d="M110,330 L175,330 L175,390 L110,390 Z"/>
+            <path class="county" data-county="Hale" data-score="85" d="M175,330 L245,330 L245,390 L175,390 Z"/>
+            <path class="county" data-county="Perry" data-score="82" d="M245,330 L310,330 L310,390 L245,390 Z"/>
+            <path class="county" data-county="Chilton" data-score="53" d="M310,330 L375,330 L375,390 L310,390 Z"/>
+            <path class="county" data-county="Coosa" data-score="71" d="M375,330 L440,330 L440,390 L375,390 Z"/>
+            <path class="county" data-county="Clay" data-score="62" d="M440,330 L520,330 L520,390 L440,390 Z"/>
+
+            <!-- Row 7 -->
+            <path class="county" data-county="Sumter" data-score="91" d="M30,390 L105,390 L105,450 L30,450 Z"/>
+            <path class="county" data-county="Marengo" data-score="84" d="M105,390 L180,390 L180,450 L105,450 Z"/>
+            <path class="county" data-county="Dallas" data-score="87" d="M180,390 L255,390 L255,450 L180,450 Z"/>
+            <path class="county" data-county="Autauga" data-score="37" d="M255,390 L320,390 L320,450 L255,450 Z"/>
+            <path class="county" data-county="Elmore" data-score="29" d="M320,390 L390,390 L390,450 L320,450 Z"/>
+            <path class="county" data-county="Tallapoosa" data-score="57" d="M0,0 L0,0 Z"/><!-- duplicate handled in data -->
+            <path class="county" data-county="Lee" data-score="24" d="M390,390 L460,390 L460,450 L390,450 Z"/>
+            <path class="county" data-county="Russell" data-score="68" d="M460,390 L520,390 L520,450 L460,450 Z"/>
+
+            <!-- Row 8 -->
+            <path class="county" data-county="Choctaw" data-score="80" d="M30,450 L105,450 L105,510 L30,510 Z"/>
+            <path class="county" data-county="Clarke" data-score="76" d="M105,450 L175,450 L175,510 L105,510 Z"/>
+            <path class="county" data-county="Wilcox" data-score="86" d="M175,450 L245,450 L245,510 L175,510 Z"/>
+            <path class="county" data-county="Lowndes" data-score="90" d="M245,450 L310,450 L310,510 L245,510 Z"/>
+            <path class="county" data-county="Montgomery" data-score="3" d="M310,450 L385,450 L385,510 L310,510 Z"/>
+            <path class="county" data-county="Macon" data-score="79" d="M385,450 L455,450 L455,510 L385,510 Z"/>
+            <path class="county" data-county="Barbour" data-score="80" d="M455,450 L520,450 L520,510 L455,510 Z"/>
+
+            <!-- Row 9 -->
+            <path class="county" data-county="Washington" data-score="73" d="M30,510 L110,510 L110,570 L30,570 Z"/>
+            <path class="county" data-county="Monroe" data-score="77" d="M110,510 L190,510 L190,570 L110,570 Z"/>
+            <path class="county" data-county="Conecuh" data-score="75" d="M190,510 L265,510 L265,570 L190,570 Z"/>
+            <path class="county" data-county="Butler" data-score="70" d="M265,510 L335,510 L335,570 L265,570 Z"/>
+            <path class="county" data-county="Crenshaw" data-score="64" d="M335,510 L400,510 L400,570 L335,570 Z"/>
+            <path class="county" data-county="Pike" data-score="56" d="M400,510 L465,510 L465,570 L400,570 Z"/>
+            <path class="county" data-county="Henry" data-score="60" d="M465,510 L520,510 L520,570 L465,570 Z"/>
+
+            <!-- Row 10: Southernmost -->
+            <path class="county" data-county="Mobile" data-score="12" d="M30,570 L140,570 L140,660 L30,660 Z"/>
+            <path class="county" data-county="Escambia" data-score="59" d="M140,570 L220,570 L220,640 L140,640 Z"/>
+            <path class="county" data-county="Covington" data-score="50" d="M220,570 L300,570 L300,640 L220,640 Z"/>
+            <path class="county" data-county="Coffee" data-score="36" d="M300,570 L375,570 L375,640 L300,640 Z"/>
+            <path class="county" data-county="Dale" data-score="45" d="M375,570 L445,570 L445,640 L375,640 Z"/>
+            <path class="county" data-county="Houston" data-score="32" d="M445,570 L520,570 L520,640 L445,640 Z"/>
+
+            <!-- Baldwin at south -->
+            <path class="county" data-county="Baldwin" data-score="0" d="M140,640 L300,640 L300,680 L140,680 Z"/>
+            <path class="county" data-county="Geneva" data-score="40" d="M300,640 L445,640 L445,680 L300,680 Z"/>
+
+            <!-- Bullock - inland -->
+            <path class="county" data-county="Bullock" data-score="100" d="M385,510 L455,510 L455,450 L420,450 L420,390 L385,390 Z"/>
+
+          </svg>
+        </div>
+        <p class="map-caption">Colored counties (24) have Alabama SoS election data available. Grey counties are outside current dataset coverage. Scores are placeholder values, PCA integration pending.</p>
+      </section>
+
+      <!-- TABLE -->
+      <section class="table-section" id="table-section">
+        <div class="section-header">
+          <h2 class="section-title">County Risk Scores</h2>
+          <div class="table-meta">
+            <span id="county-count">67 counties</span>
+            <div class="sort-controls">
+              <span class="sort-label">Sort by</span>
+              <button class="sort-btn active" data-sort="score-desc">Score ↓</button>
+              <button class="sort-btn" data-sort="score-asc">Score ↑</button>
+              <button class="sort-btn" data-sort="alpha">A–Z</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="county-table" id="county-table">
+            <thead>
+              <tr>
+                <th class="th-rank">Rank</th>
+                <th class="th-county">County</th>
+                <th class="th-score">Risk Score</th>
+                <th class="th-tier">Tier</th>
+                <th class="th-bar">Relative Score</th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- METHODOLOGY NOTE -->
+  <section class="methodology-section" id="methodology">
+    <div class="methodology-inner">
+      <div class="method-header">
+        <h2 class="method-title">About the Index</h2>
+      </div>
+      <div class="method-grid">
+        <div class="method-card">
+          <h3>Composite Scoring</h3>
+          <p>The GC-CPRI combines five access-related indicators into a single composite score using Principal Component Analysis (PCA). PCA identifies underlying variance patterns across indicators and reduces dimensionality while preserving meaningful structure.</p>
+        </div>
+        <div class="method-card">
+          <h3>Data Sources</h3>
+          <p>Analysis draws on Alabama Secretary of State 2024 general election data and USDA Economic Research Service indicators including poverty estimates, educational attainment, and population data at the county level.</p>
+        </div>
+        <div class="method-card">
+          <h3>Interpretation</h3>
+          <p>Scores represent relative access-related risk across Alabama counties, not absolute measures of civic engagement or voting behavior. Higher scores indicate a greater concentration of structural access barriers relative to other counties.</p>
+        </div>
+        <div class="method-card">
+          <h3>Limitations</h3>
+          <p>This tool does not establish causal relationships between indicators and participation outcomes. Coverage currently reflects publicly available data, which may vary by county. All assumptions and data decisions are documented in the project repository.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" id="about">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">GC-CPRI</div>
+        <p>Composite Civic Participation Risk Index<br/>Alabama Gulf Coast Region · Spring 2026</p>
+        <p class="footer-course">INST490-0105 iConsultancy · University of Maryland</p>
+      </div>
+      <div class="footer-right">
+        <p class="footer-team-label">Project Team</p>
+        <ul class="footer-team">
+          <li>Nathan Maldonado Munoz</li>
+          <li>Moiz Uddin</li>
+          <li>Talha Sohail</li>
+          <li>Elijah Lambros</li>
+          <li>Akhil Ramesh</li>
+        </ul>
+      </div>
+      <div class="footer-disclaimer">
+        <p>This project is informational and analytical in nature. It does not involve political advocacy or partisan messaging. Developed in partnership with the Southern Poverty Law Center.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
