@@ -7,6 +7,7 @@
       "label": "Poverty Rate",
       "direction": "higher_is_riskier",
       "transform": "div100",
+      "display_format": "percent_div100",
       "mean": 0.187375,
       "std": 0.04321150743725565,
       "median_for_imputation": 0.19
@@ -16,6 +17,7 @@
       "label": "Unemployment Rate",
       "direction": "higher_is_riskier",
       "transform": "div100",
+      "display_format": "percent_div100",
       "mean": 0.03375,
       "std": 0.008287792227125388,
       "median_for_imputation": 0.031
@@ -25,6 +27,7 @@
       "label": "Median Household Income",
       "direction": "lower_is_riskier",
       "transform": "negate",
+      "display_format": "currency_usd",
       "mean": -50487.25,
       "std": 9598.908593558957,
       "median_for_imputation": -47792.0
@@ -34,6 +37,7 @@
       "label": "Adults Without HS Diploma",
       "direction": "higher_is_riskier",
       "transform": "div100",
+      "display_format": "percent_div100",
       "mean": 0.13023362605625,
       "std": 0.028315657105270807,
       "median_for_imputation": 0.1251384275
@@ -43,6 +47,7 @@
       "label": "Non-White Voter Share",
       "direction": "higher_is_riskier",
       "transform": "none",
+      "display_format": "percent_share",
       "mean": 0.30767859441051226,
       "std": 0.10709000990941932,
       "median_for_imputation": 0.31375617506951303
@@ -52,6 +57,7 @@
       "label": "Rural-Urban Code",
       "direction": "higher_is_riskier",
       "transform": "none",
+      "display_format": "integer",
       "mean": 6.625,
       "std": 2.54644359843292,
       "median_for_imputation": 8.0
