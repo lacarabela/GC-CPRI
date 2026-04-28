@@ -59,6 +59,7 @@ async function loadData() {
 function applyTransform(value, transform) {
   if (transform === 'div100') return value > 1 ? value / 100 : value;
   if (transform === 'negate') return -value;
+  if (transform === 'invert') return 1 - value;
   return value;
 }
 
