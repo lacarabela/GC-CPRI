@@ -1,1 +1,182 @@
-[{"county":"BALDWIN","gc_cpri_score":0.0},{"county":"CLARKE","gc_cpri_score":95.4830928009},{"county":"CONECUH","gc_cpri_score":100.0},{"county":"ESCAMBIA","gc_cpri_score":72.9025075856},{"county":"MOBILE","gc_cpri_score":42.5709969472},{"county":"MONROE","gc_cpri_score":86.6281688145},{"county":"WASHINGTON","gc_cpri_score":55.0840766301},{"county":"TOTAL (ALL OF ALABAMA)","gc_cpri_score":65.8968257524}]
+{
+  "version": 2,
+  "score_method": "PC1 only, min-max normalized to 0-100",
+  "indicators": [
+    {
+      "id": "poverty_rate",
+      "label": "Poverty Rate",
+      "direction": "higher_is_riskier",
+      "transform": "div100",
+      "display_format": "percent_div100",
+      "mean": 0.187375,
+      "std": 0.04321150743725565,
+      "median_for_imputation": 0.19
+    },
+    {
+      "id": "unemployment_rate",
+      "label": "Unemployment Rate",
+      "direction": "higher_is_riskier",
+      "transform": "div100",
+      "display_format": "percent_div100",
+      "mean": 0.03375,
+      "std": 0.008287792227125388,
+      "median_for_imputation": 0.031
+    },
+    {
+      "id": "median_income",
+      "label": "Median Household Income",
+      "direction": "lower_is_riskier",
+      "transform": "negate",
+      "display_format": "currency_usd",
+      "mean": -50487.25,
+      "std": 9598.908593558957,
+      "median_for_imputation": -47792.0
+    },
+    {
+      "id": "pct_less_hs",
+      "label": "Adults Without HS Diploma",
+      "direction": "higher_is_riskier",
+      "transform": "div100",
+      "display_format": "percent_div100",
+      "mean": 0.13023362605625,
+      "std": 0.028315657105270807,
+      "median_for_imputation": 0.1251384275
+    },
+    {
+      "id": "non_white_share",
+      "label": "Non-White Voter Share",
+      "direction": "higher_is_riskier",
+      "transform": "none",
+      "display_format": "percent_share",
+      "mean": 0.30767859441051226,
+      "std": 0.10709000990941932,
+      "median_for_imputation": 0.31375617506951303
+    },
+    {
+      "id": "rural_urban_code",
+      "label": "Rural-Urban Code",
+      "direction": "higher_is_riskier",
+      "transform": "none",
+      "display_format": "integer",
+      "mean": 6.625,
+      "std": 2.54644359843292,
+      "median_for_imputation": 8.0
+    },
+    {
+      "id": "broadband_access_rate",
+      "label": "Limited Broadband Access",
+      "direction": "lower_access_is_riskier",
+      "transform": "invert",
+      "display_format": "percent_share",
+      "mean": 0.19999999999999998,
+      "std": 0.05634713834792323,
+      "median_for_imputation": 0.20999999999999996
+    }
+  ],
+  "pc1_loadings": {
+    "poverty_rate": 0.3845390489461746,
+    "unemployment_rate": 0.3342817655208349,
+    "median_income": 0.4201269428177633,
+    "pct_less_hs": 0.3234666690080413,
+    "non_white_share": 0.3833557412758668,
+    "rural_urban_code": 0.3555543755500706,
+    "broadband_access_rate": 0.43112358865332
+  },
+  "score_normalization": {
+    "raw_min": -4.835057570181867,
+    "raw_max": 2.6240672637196725
+  },
+  "counties": [
+    {
+      "name": "Baldwin",
+      "indicators_raw": {
+        "poverty_rate": 10.0,
+        "unemployment_rate": 2.3,
+        "median_income": 71704.0,
+        "pct_less_hs": 8.268600135,
+        "non_white_share": 0.082985051686042,
+        "rural_urban_code": 3.0,
+        "broadband_access_rate": 0.91
+      },
+      "gc_cpri_score": 0.0
+    },
+    {
+      "name": "Clarke",
+      "indicators_raw": {
+        "poverty_rate": 19.0,
+        "unemployment_rate": 5.0,
+        "median_income": 44906.0,
+        "pct_less_hs": 14.73130402,
+        "non_white_share": 0.4133496512880824,
+        "rural_urban_code": 9.0,
+        "broadband_access_rate": 0.74
+      },
+      "gc_cpri_score": 95.48309280091948
+    },
+    {
+      "name": "Conecuh",
+      "indicators_raw": {
+        "poverty_rate": 26.5,
+        "unemployment_rate": 3.5,
+        "median_income": 36106.0,
+        "pct_less_hs": 12.51384275,
+        "non_white_share": 0.4318291925434485,
+        "rural_urban_code": 9.0,
+        "broadband_access_rate": 0.73
+      },
+      "gc_cpri_score": 100.0
+    },
+    {
+      "name": "Escambia",
+      "indicators_raw": {
+        "poverty_rate": 21.3,
+        "unemployment_rate": 3.1,
+        "median_income": 47792.0,
+        "pct_less_hs": 17.46735166,
+        "non_white_share": 0.2715977512446346,
+        "rural_urban_code": 6.0,
+        "broadband_access_rate": 0.79
+      },
+      "gc_cpri_score": 72.90250758555351
+    },
+    {
+      "name": "Mobile",
+      "indicators_raw": {
+        "poverty_rate": 16.3,
+        "unemployment_rate": 3.1,
+        "median_income": 54315.0,
+        "pct_less_hs": 10.99169307,
+        "non_white_share": 0.3559145988943914,
+        "rural_urban_code": 2.0,
+        "broadband_access_rate": 0.86
+      },
+      "gc_cpri_score": 42.57099694717632
+    },
+    {
+      "name": "Monroe",
+      "indicators_raw": {
+        "poverty_rate": 19.1,
+        "unemployment_rate": 4.3,
+        "median_income": 47498.0,
+        "pct_less_hs": 16.38531023,
+        "non_white_share": 0.3872598585725891,
+        "rural_urban_code": 8.0,
+        "broadband_access_rate": 0.77
+      },
+      "gc_cpri_score": 86.62816881445185
+    },
+    {
+      "name": "Washington",
+      "indicators_raw": {
+        "poverty_rate": 18.7,
+        "unemployment_rate": 2.6,
+        "median_income": 53785.0,
+        "pct_less_hs": 11.31495623,
+        "non_white_share": 0.2556308004861112,
+        "rural_urban_code": 8.0,
+        "broadband_access_rate": 0.81
+      },
+      "gc_cpri_score": 55.08407663011772
+    }
+  ]
+}
