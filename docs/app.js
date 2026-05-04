@@ -18,8 +18,9 @@ const WEIGHTS = {};            // {indicator_id: weight}, all default to 1.0
 
 // Direction → arrow + class
 const DIRECTION_LABELS = {
-  higher_is_riskier: { arrow: '↑', text: 'higher = higher risk', cls: 'risk-higher' },
-  lower_is_riskier:  { arrow: '↓', text: 'lower = higher risk',  cls: 'risk-lower'  },
+  higher_is_riskier:      { arrow: '↑', text: 'in general, higher values are associated with greater risk', cls: 'risk-higher' },
+  lower_is_riskier:       { arrow: '↓', text: 'in general, lower values are associated with greater risk',  cls: 'risk-lower'  },
+  lower_access_is_riskier:{ arrow: '↓', text: 'in general, lower access is associated with greater risk',   cls: 'risk-lower'  },
 };
 
 // ------------------------------------
@@ -311,11 +312,13 @@ function renderTable() {
 function buildSliders() {
   const list = document.getElementById('sliders-list');
   list.innerHTML = INDICATORS.map(ind => {
+    const dir = DIRECTION_LABELS[ind.direction] || DIRECTION_LABELS.higher_is_riskier;
     return `
       <div class="slider-item">
         <div class="slider-header">
           <div class="slider-label-group">
             <span class="slider-label">${ind.label}</span>
+            <span class="slider-direction ${dir.cls}">${dir.arrow} ${dir.text}</span>
           </div>
           <span class="slider-value" id="val-${ind.id}">1.0×</span>
         </div>
