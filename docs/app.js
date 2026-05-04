@@ -311,13 +311,11 @@ function renderTable() {
 function buildSliders() {
   const list = document.getElementById('sliders-list');
   list.innerHTML = INDICATORS.map(ind => {
-    const dir = DIRECTION_LABELS[ind.direction] || DIRECTION_LABELS.higher_is_riskier;
     return `
       <div class="slider-item">
         <div class="slider-header">
           <div class="slider-label-group">
             <span class="slider-label">${ind.label}</span>
-            <span class="slider-direction ${dir.cls}">${dir.arrow} ${dir.text}</span>
           </div>
           <span class="slider-value" id="val-${ind.id}">1.0×</span>
         </div>
