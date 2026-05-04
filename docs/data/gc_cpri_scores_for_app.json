@@ -54,7 +54,7 @@
     },
     {
       "id": "rural_urban_code",
-      "label": "Rural-Urban Code",
+      "label": "Rural-Urban Continuum Code",
       "direction": "higher_is_riskier",
       "transform": "none",
       "display_format": "integer",
@@ -64,7 +64,7 @@
     },
     {
       "id": "broadband_access_rate",
-      "label": "Limited Broadband Access",
+      "label": "Broadband Access Rate",
       "direction": "lower_access_is_riskier",
       "transform": "invert",
       "display_format": "percent_share",
