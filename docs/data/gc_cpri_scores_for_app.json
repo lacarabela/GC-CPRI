@@ -64,8 +64,8 @@
     },
     {
       "id": "broadband_access_rate",
-      "label": "Broadband Access Rate",
-      "direction": "lower_access_is_riskier",
+      "label": "Limited Broadband Access Rate",
+      "direction": "higher_is_riskier",
       "transform": "invert",
       "display_format": "percent_share",
       "mean": 0.19999999999999998,
