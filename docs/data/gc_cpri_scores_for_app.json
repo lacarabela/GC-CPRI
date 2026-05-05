@@ -18,9 +18,9 @@
       "direction": "higher_is_riskier",
       "transform": "div100",
       "display_format": "percent_div100",
-      "mean": 0.03375,
-      "std": 0.008287792227125388,
-      "median_for_imputation": 0.031
+      "mean": 0.048843750000000005,
+      "std": 0.008221482435516115,
+      "median_for_imputation": 0.04875
     },
     {
       "id": "median_income",
@@ -74,24 +74,24 @@
     }
   ],
   "pc1_loadings": {
-    "poverty_rate": 0.3845390489461746,
-    "unemployment_rate": 0.3342817655208349,
-    "median_income": 0.4201269428177633,
-    "pct_less_hs": 0.3234666690080413,
-    "non_white_share": 0.3833557412758668,
-    "rural_urban_code": 0.3555543755500706,
-    "broadband_access_rate": 0.43112358865332
+    "poverty_rate": 0.3855315781350837,
+    "unemployment_rate": 0.3377813703449452,
+    "median_income": 0.4208803072336178,
+    "pct_less_hs": 0.3130485092449916,
+    "non_white_share": 0.3847259980573931,
+    "rural_urban_code": 0.3594968855630647,
+    "broadband_access_rate": 0.4299737685489496
   },
   "score_normalization": {
-    "raw_min": -4.835057570181867,
-    "raw_max": 2.6240672637196725
+    "raw_min": -5.003743887665558,
+    "raw_max": 2.578421289247568
   },
   "counties": [
     {
       "name": "Baldwin",
       "indicators_raw": {
         "poverty_rate": 10.0,
-        "unemployment_rate": 2.3,
+        "unemployment_rate": 3.4,
         "median_income": 71704.0,
         "pct_less_hs": 8.268600135,
         "non_white_share": 0.082985051686042,
@@ -104,20 +104,20 @@
       "name": "Clarke",
       "indicators_raw": {
         "poverty_rate": 19.0,
-        "unemployment_rate": 5.0,
+        "unemployment_rate": 6.35,
         "median_income": 44906.0,
         "pct_less_hs": 14.73130402,
         "non_white_share": 0.4133496512880824,
         "rural_urban_code": 9.0,
         "broadband_access_rate": 0.74
       },
-      "gc_cpri_score": 95.48309280091948
+      "gc_cpri_score": 95.42963275042044
     },
     {
       "name": "Conecuh",
       "indicators_raw": {
         "poverty_rate": 26.5,
-        "unemployment_rate": 3.5,
+        "unemployment_rate": 4.875,
         "median_income": 36106.0,
         "pct_less_hs": 12.51384275,
         "non_white_share": 0.4318291925434485,
@@ -130,53 +130,53 @@
       "name": "Escambia",
       "indicators_raw": {
         "poverty_rate": 21.3,
-        "unemployment_rate": 3.1,
+        "unemployment_rate": 4.2,
         "median_income": 47792.0,
         "pct_less_hs": 17.46735166,
         "non_white_share": 0.2715977512446346,
         "rural_urban_code": 6.0,
         "broadband_access_rate": 0.79
       },
-      "gc_cpri_score": 72.90250758555351
+      "gc_cpri_score": 71.47211187204218
     },
     {
       "name": "Mobile",
       "indicators_raw": {
         "poverty_rate": 16.3,
-        "unemployment_rate": 3.1,
+        "unemployment_rate": 4.85,
         "median_income": 54315.0,
         "pct_less_hs": 10.99169307,
         "non_white_share": 0.3559145988943914,
         "rural_urban_code": 2.0,
         "broadband_access_rate": 0.86
       },
-      "gc_cpri_score": 42.57099694717632
+      "gc_cpri_score": 45.3986678737872
     },
     {
       "name": "Monroe",
       "indicators_raw": {
         "poverty_rate": 19.1,
-        "unemployment_rate": 4.3,
+        "unemployment_rate": 5.65,
         "median_income": 47498.0,
         "pct_less_hs": 16.38531023,
         "non_white_share": 0.3872598585725891,
         "rural_urban_code": 8.0,
         "broadband_access_rate": 0.77
       },
-      "gc_cpri_score": 86.62816881445185
+      "gc_cpri_score": 86.54968096365603
     },
     {
       "name": "Washington",
       "indicators_raw": {
         "poverty_rate": 18.7,
-        "unemployment_rate": 2.6,
+        "unemployment_rate": 4.875,
         "median_income": 53785.0,
         "pct_less_hs": 11.31495623,
         "non_white_share": 0.2556308004861112,
         "rural_urban_code": 8.0,
         "broadband_access_rate": 0.81
       },
-      "gc_cpri_score": 55.08407663011772
+      "gc_cpri_score": 60.58823636099532
     }
   ]
 }
