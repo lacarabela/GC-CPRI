@@ -61,3 +61,10 @@ Secondly, unemployment is another important factor when it comes to voters becau
 
 #### Columns:
 The rows are grouped up by the county, so multiple counties will be there. The first three columns are the different identifiers of the counties, being the FIPS code, state, and the county name. The last two columns are the attribute and the value. The attribute is the different descriptor of what describes unemployment or median household income. The value has to be taken into the context of the attribute, such as one of the attributes is a code, and so the value will be the code that the attribute refers too. Another attribute is the “civilian_labor_force”, which gives a raw numeric value to the amount of civilians working within a county.
+
+### Poverty estimates for the United States, States, and counties, 2023.csv
+#### Relevance:
+An important part of voting, and why someone votes is based on their status financially. Poverty is an easy to identify, and a very significant risk. Poverty also prevails in an intertwining way across a lot of other voting risks, for example, someone who is poor may not be able to travel towards a voting poll location. There may also be a general demotivation to vote because other things may be taking a lot more priority, such as survival, employment, debts. It is a very important thing to take into account when trying to see the risks in voting.
+
+#### Columns:
+Like the other USDA-ERS datasets, the first 3 columns are used for identification of the state and county. The first column is the FIPS code, the second one is the state, and the third one is the county itself. A county comes up multiple times, because multiple values are mapped to a county. The second to last column: Attribute, is the column that holds the different traits that have values which are then shown inside of the final column.
