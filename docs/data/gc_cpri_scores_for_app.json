@@ -8,8 +8,8 @@
       "direction": "higher_is_riskier",
       "transform": "div100",
       "display_format": "percent_div100",
-      "mean": 0.187375,
-      "std": 0.04321150743725565,
+      "mean": 0.18700000000000003,
+      "std": 0.04618286633435763,
       "median_for_imputation": 0.19
     },
     {
@@ -18,8 +18,8 @@
       "direction": "higher_is_riskier",
       "transform": "div100",
       "display_format": "percent_div100",
-      "mean": 0.048843750000000005,
-      "std": 0.008221482435516115,
+      "mean": 0.04885714285714286,
+      "std": 0.00878905279194475,
       "median_for_imputation": 0.04875
     },
     {
@@ -28,8 +28,8 @@
       "direction": "lower_is_riskier",
       "transform": "negate",
       "display_format": "currency_usd",
-      "mean": -50487.25,
-      "std": 9598.908593558957,
+      "mean": -50872.28571428572,
+      "std": 10203.71241564679,
       "median_for_imputation": -47792.0
     },
     {
@@ -38,8 +38,8 @@
       "direction": "higher_is_riskier",
       "transform": "div100",
       "display_format": "percent_div100",
-      "mean": 0.13023362605625,
-      "std": 0.028315657105270807,
+      "mean": 0.1309615115642857,
+      "std": 0.030200619030810123,
       "median_for_imputation": 0.1251384275
     },
     {
@@ -48,9 +48,9 @@
       "direction": "higher_is_riskier",
       "transform": "none",
       "display_format": "percent_share",
-      "mean": 0.30767859441051226,
-      "std": 0.10709000990941932,
-      "median_for_imputation": 0.31375617506951303
+      "mean": 0.3140809863878999,
+      "std": 0.11304277754738794,
+      "median_for_imputation": 0.3559145988943914
     },
     {
       "id": "rural_urban_code",
@@ -58,8 +58,8 @@
       "direction": "higher_is_riskier",
       "transform": "none",
       "display_format": "integer",
-      "mean": 6.625,
-      "std": 2.54644359843292,
+      "mean": 6.428571428571429,
+      "std": 2.6649654437396615,
       "median_for_imputation": 8.0
     },
     {
@@ -68,23 +68,23 @@
       "direction": "lower_access_is_riskier",
       "transform": "invert",
       "display_format": "percent_share",
-      "mean": 0.19999999999999998,
-      "std": 0.05634713834792323,
-      "median_for_imputation": 0.20999999999999996
+      "mean": 0.29628571428571426,
+      "std": 0.09609773936052862,
+      "median_for_imputation": 0.30999999999999994
     }
   ],
   "pc1_loadings": {
-    "poverty_rate": 0.3855315781350837,
-    "unemployment_rate": 0.3377813703449452,
-    "median_income": 0.4208803072336178,
-    "pct_less_hs": 0.3130485092449916,
-    "non_white_share": 0.3847259980573931,
-    "rural_urban_code": 0.3594968855630647,
-    "broadband_access_rate": 0.4299737685489496
+    "poverty_rate": 0.3812818768213469,
+    "unemployment_rate": 0.3414474093674322,
+    "median_income": 0.4186915272567506,
+    "pct_less_hs": 0.3281229503227428,
+    "non_white_share": 0.3920478901773625,
+    "rural_urban_code": 0.36549499573503,
+    "broadband_access_rate": 0.4096124893346128
   },
   "score_normalization": {
-    "raw_min": -5.003743887665558,
-    "raw_max": 2.578421289247568
+    "raw_min": -4.655228312840507,
+    "raw_max": 2.2406290164703893
   },
   "counties": [
     {
@@ -96,7 +96,7 @@
         "pct_less_hs": 8.268600135,
         "non_white_share": 0.082985051686042,
         "rural_urban_code": 3.0,
-        "broadband_access_rate": 0.91
+        "broadband_access_rate": 0.8700000000000001
       },
       "gc_cpri_score": 0.0
     },
@@ -109,9 +109,9 @@
         "pct_less_hs": 14.73130402,
         "non_white_share": 0.4133496512880824,
         "rural_urban_code": 9.0,
-        "broadband_access_rate": 0.74
+        "broadband_access_rate": 0.6659999999999999
       },
-      "gc_cpri_score": 95.42963275042044
+      "gc_cpri_score": 94.68047118004978
     },
     {
       "name": "Conecuh",
@@ -122,7 +122,7 @@
         "pct_less_hs": 12.51384275,
         "non_white_share": 0.4318291925434485,
         "rural_urban_code": 9.0,
-        "broadband_access_rate": 0.73
+        "broadband_access_rate": 0.634
       },
       "gc_cpri_score": 100.0
     },
@@ -135,9 +135,9 @@
         "pct_less_hs": 17.46735166,
         "non_white_share": 0.2715977512446346,
         "rural_urban_code": 6.0,
-        "broadband_access_rate": 0.79
+        "broadband_access_rate": 0.6900000000000001
       },
-      "gc_cpri_score": 71.47211187204218
+      "gc_cpri_score": 73.33597475406769
     },
     {
       "name": "Mobile",
@@ -148,9 +148,9 @@
         "pct_less_hs": 10.99169307,
         "non_white_share": 0.3559145988943914,
         "rural_urban_code": 2.0,
-        "broadband_access_rate": 0.86
+        "broadband_access_rate": 0.8
       },
-      "gc_cpri_score": 45.3986678737872
+      "gc_cpri_score": 46.4134015726918
     },
     {
       "name": "Monroe",
@@ -161,9 +161,9 @@
         "pct_less_hs": 16.38531023,
         "non_white_share": 0.3872598585725891,
         "rural_urban_code": 8.0,
-        "broadband_access_rate": 0.77
+        "broadband_access_rate": 0.5579999999999999
       },
-      "gc_cpri_score": 86.54968096365603
+      "gc_cpri_score": 95.29492489140569
     },
     {
       "name": "Washington",
@@ -174,9 +174,9 @@
         "pct_less_hs": 11.31495623,
         "non_white_share": 0.2556308004861112,
         "rural_urban_code": 8.0,
-        "broadband_access_rate": 0.81
+        "broadband_access_rate": 0.708
       },
-      "gc_cpri_score": 60.58823636099532
+      "gc_cpri_score": 62.82848144266653
     }
   ]
 }
