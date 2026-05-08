@@ -165,11 +165,10 @@ The workflow follows these general steps:
 1. **Collect and clean public county-level data** from election, socioeconomic, demographic, geographic, and broadband sources.
 2. **Build a merged model input table** where each row represents one county and each column represents a selected indicator.
 3. **Prepare indicators for PCA** by aligning each variable so that higher transformed values consistently represent higher relative risk.
-4. **Handle missing values** using median imputation to preserve counties in the analysis.
-5. **Standardize indicators** so variables measured on different scales can be compared in the PCA model.
-6. **Run PCA** and use the first principal component as the main composite scoring dimension.
-7. **Normalize scores** from 0 to 100 for easier interpretation and communication.
-8. **Export final files** for documentation, reporting, and the interactive web application.
+4. **Standardize indicators** so variables measured on different scales can be compared in the PCA model.
+5. **Run PCA** and use the first principal component as the main composite scoring dimension.
+6. **Normalize scores** from 0 to 100 for easier interpretation and communication.
+7. **Export final files** for documentation, reporting, and the interactive web application.
 
 ---
 
