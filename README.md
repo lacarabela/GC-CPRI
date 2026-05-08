@@ -25,9 +25,9 @@ This repository also includes an interactive web tool that allows users to explo
    - Allows non-technical users to explore how indicator weights affect final county scores
 
 3. **Documentation and Handoff Materials**
-   - Explains the notebook workflow
-   - Documents data inputs, generated outputs, and modeling assumptions
-   - Supports future updates, review, and client handoff
+   - [GC-CPRI PCA Methodology Documentation](documentation/gc_cpri_pca_methodology_documentation.md)
+   -
+   - 
 
 ---
 
