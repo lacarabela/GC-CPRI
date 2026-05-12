@@ -1144,6 +1144,57 @@ body {
   color: var(--text-mid);
   cursor: default;
 }
+.detail-action-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.detail-action-row .detail-add {
+  flex: 1;
+}
+.detail-remove {
+  background: transparent;
+  color: var(--amber);
+  border: 1.5px solid var(--amber);
+  padding: 9px 14px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+.detail-remove:hover {
+  background: var(--amber);
+  color: var(--navy);
+}
+.detail-guide-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.detail-compare-guide {
+  flex: 1;
+  background: transparent;
+  color: var(--amber);
+  border: 1.5px solid var(--amber);
+  padding: 9px 16px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+.detail-compare-guide:hover {
+  background: var(--amber);
+  color: var(--navy);
+}
 
 .detail-body {
   padding: 24px 32px 32px;

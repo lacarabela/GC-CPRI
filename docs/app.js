@@ -445,6 +445,7 @@ function openDetail(county) {
   document.getElementById('detail-panel').setAttribute('aria-hidden', 'false');
   document.getElementById('detail-scrim').hidden = false;
   requestAnimationFrame(() => document.getElementById('detail-scrim').classList.add('visible'));
+  document.body.style.overflow = 'hidden';
   renderDetail();
   renderTable();
 }
@@ -456,6 +457,7 @@ function closeDetail() {
   const scrim = document.getElementById('detail-scrim');
   scrim.classList.remove('visible');
   setTimeout(() => { scrim.hidden = true; }, 250);
+  document.body.style.overflow = '';
   renderTable();
 }
 
@@ -489,6 +491,31 @@ function renderDetail() {
     addBtn.textContent = '+ Add to compare';
     addBtn.classList.remove('added');
     addBtn.disabled = false;
+  }
+
+  // Remove-from-compare button
+  const removeBtn = document.getElementById('detail-remove');
+  if (compareSet.find(x => x.name === c.name)) {
+    removeBtn.style.display = 'block';
+  } else {
+    removeBtn.style.display = 'none';
+  }
+
+  // Dynamic compare-guide row
+  const guideRow = document.getElementById('detail-guide-row');
+  const addAnotherBtn = document.getElementById('detail-add-another');
+  const goCompareBtn = document.getElementById('detail-go-compare');
+  if (compareSet.length === 0) {
+    guideRow.style.display = 'none';
+  } else if (compareSet.length < 4) {
+    guideRow.style.display = 'flex';
+    addAnotherBtn.style.display = '';
+    goCompareBtn.style.display = '';
+  } else {
+    // maxed out — only show "Go to compare"
+    guideRow.style.display = 'flex';
+    addAnotherBtn.style.display = 'none';
+    goCompareBtn.style.display = '';
   }
 
   // Indicator rows
@@ -641,6 +668,18 @@ function initDetailChrome() {
   document.getElementById('detail-scrim').addEventListener('click', closeDetail);
   document.getElementById('detail-add').addEventListener('click', () => {
     if (selectedCounty) addToCompare(selectedCounty);
+  });
+  document.getElementById('detail-remove').addEventListener('click', () => {
+    if (selectedCounty) removeFromCompare(selectedCounty.name);
+  });
+  document.getElementById('detail-add-another').addEventListener('click', () => {
+    closeDetail();
+  });
+  document.getElementById('detail-go-compare').addEventListener('click', () => {
+    closeDetail();
+    setTimeout(() => {
+      document.getElementById('compare-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 320);
   });
   document.getElementById('compare-clear').addEventListener('click', clearCompare);
   document.addEventListener('keydown', e => {
