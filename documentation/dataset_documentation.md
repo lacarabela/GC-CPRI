@@ -68,3 +68,14 @@ An important part of voting, and why someone votes is based on their status fina
 
 #### Columns:
 Like the other USDA-ERS datasets, the first 3 columns are used for identification of the state and county. The first column is the FIPS code, the second one is the state, and the third one is the county itself. A county comes up multiple times, because multiple values are mapped to a county. The second to last column: Attribute, is the column that holds the different traits that have values which are then shown inside of the final column.
+
+## County Health Ranking & Roadmaps
+### About the Source:
+This dataset comes from a program created by University of Wisconsin Population Health Institute. It was created in order to gather evidence to help decision making that directly benefits the lives of the community members that they studied. They use evidence based practices that give actionable information, and ensure ethical and safe sourcing
+
+### alabama-2023-broadband-access-place-sort.csv
+#### Relevance:
+An important part of particiapting in an election is the amount of information that a person has on the environment, canidates, issues, and campaigns. In modern times this information has gone almost all digital. Canidates posts information about events, issues, requests, and their information online now, which requires internet access. This dataset gives context as to which counties have access to the internet acces, using percentages. It gives the percent of households with boradband access, and the actual number of households, along with an error margin.
+
+#### Columns:
+The first column is the county, this is just the county that is going to be looked into. The second column is the County Value, which is the percent of the county that has broadband access. The third value is the "# Households with Broadband Access", it gives the raw number of homes with broadband access. And the final column is the error margin, which as the name states the margin of error given to the values.
